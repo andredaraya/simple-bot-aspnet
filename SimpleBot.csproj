@@ -145,6 +145,7 @@
     <Compile Include="Repositorios\IMensagemRepositorio.cs" />
     <Compile Include="Repositorios\IProfileRepositorio.cs" />
     <Compile Include="Repositorios\MensagemSqlRepositorio.cs" />
+    <Compile Include="Repositorios\ProfileSqlRepositorio.cs" />
     <Compile Include="Repositorios\ProfileMongoRepositorio.cs" />
     <Compile Include="Repositorios\MensagemMongoRepositorio.cs" />
   </ItemGroup>
