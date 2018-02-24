@@ -140,6 +140,7 @@
     <Compile Include="Logic\Message.cs" />
     <Compile Include="Logic\SimpleBotUser.cs" />
     <Compile Include="Logic\UserProfile.cs" />
+    <Compile Include="Models\Mensagem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
