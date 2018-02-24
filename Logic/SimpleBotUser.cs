@@ -2,9 +2,7 @@
 using MongoDB.Driver;
 using SimpleBot.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace SimpleBot
 {
@@ -24,7 +22,7 @@ namespace SimpleBot
             if (message.Text.ToUpper().Equals("HISTORICO"))
                 return ExibirHistorico(message.User);
 
-            return $"{message.User} conversou '{message.Text}' vez(es)";
+            return $"{message.User} conversou '{perfil.Visitas}' vez(es)";
         }
 
         public static UserProfile GetProfile(string id)
@@ -41,34 +39,44 @@ namespace SimpleBot
         {
             var colecao = ObterColecao<UserProfile>("BOT", "Perfil");
 
-            //if(profile.Id == 0)
+            if (string.IsNullOrEmpty(profile.Id))
+                profile.Id = id;
+
+            var filtro = Builders<UserProfile>.Filter.Eq("Id", id);
+            var opcao = new UpdateOptions();
+            //Se o registro não é encontrado, insere um novo
+            opcao.IsUpsert = true;
+
+            colecao.ReplaceOne(filtro, profile, opcao);
         }
+
+        #region Métodos Privados
 
         private static void RegistrarMensagem(string usuario, string mensagem)
         {
             try
             {
-                var colecao = ObterColecao<BsonDocument>("BOT", "Historico");
+                //var colecao = ObterColecao<BsonDocument>("BOT", "Historico");
 
-                var hist = new BsonDocument()
-                {
-                    {"Usuário", usuario },
-                    {"Texto", mensagem },
-                    {"Data", DateTime.Now }
-                };
-
-                colecao.InsertOne(hist);
-
-                //var colecao = ObterColecao<Mensagem>("BOT", "Historico");;
-
-                //var hist = new Mensagem()
+                //var hist = new BsonDocument()
                 //{
-                //    Usuario = usuario,
-                //    Texto = mensagem,
-                //    Data = DateTime.Now
+                //    {"Usuário", usuario },
+                //    {"Texto", mensagem },
+                //    {"Data", DateTime.Now }
                 //};
 
                 //colecao.InsertOne(hist);
+
+                var colecao = ObterColecao<Mensagem>("BOT", "Historico"); ;
+
+                var hist = new Mensagem()
+                {
+                    Usuario = usuario,
+                    Texto = mensagem,
+                    Data = DateTime.Now
+                };
+
+                colecao.InsertOne(hist);
 
 
             }
@@ -92,8 +100,7 @@ namespace SimpleBot
             }
             catch (Exception ex)
             {
-
-                throw;
+                return ex.Message;
             }
         }
 
@@ -105,7 +112,9 @@ namespace SimpleBot
             var colecao = database.GetCollection<T>(nomeColecao);
 
             return colecao;
-        }
+        } 
+
+        #endregion
     }
 
 
