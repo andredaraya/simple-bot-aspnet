@@ -8,10 +8,7 @@ namespace SimpleBot.Repositorios
 {
     public class MensagemSqlRepositorio : IMensagemRepositorio
     {
-        private static MongoClient _cliente;
         private string _connectionString = string.Empty;
-        private readonly string _nomeBanco = "BOT";
-        private readonly string _nomeColecao = "Historico";
 
         public MensagemSqlRepositorio(string connectionString)
         {
