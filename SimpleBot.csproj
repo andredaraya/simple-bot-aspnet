@@ -142,6 +142,11 @@
     <Compile Include="Logic\UserProfile.cs" />
     <Compile Include="Models\Mensagem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositorios\IMensagemRepositorio.cs" />
+    <Compile Include="Repositorios\IProfileRepositorio.cs" />
+    <Compile Include="Repositorios\MensagemSqlRepositorio.cs" />
+    <Compile Include="Repositorios\ProfileMongoRepositorio.cs" />
+    <Compile Include="Repositorios\MensagemMongoRepositorio.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
